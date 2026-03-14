@@ -1,0 +1,1282 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lucero Condori Rivera — Project Manager</title>
+<meta name="description" content="Project Manager con perfil técnico. Innovación digital, impacto social, transformación tecnológica. Arequipa, Perú.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --p:  #5B2D8B;
+  --g:  #4F6F52;
+  --c:  #FAF7F2;
+  --d:  #2E2E2E;
+  --o:  #C46A4A;
+  --bg: #0E0C0A;
+  --bg2:#151210;
+  --bg3:#1C1815;
+  --line: rgba(250,247,242,0.08);
+  --line2: rgba(250,247,242,0.15);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+
+/* ── CURSOR ── */
+body { cursor: none; }
+#cursor {
+  width:12px;height:12px;border-radius:50%;
+  background:var(--o);
+  position:fixed;pointer-events:none;z-index:9999;
+  transform:translate(-50%,-50%);
+  transition:width .2s,height .2s,background .2s;
+  mix-blend-mode:screen;
+}
+#cursor-ring {
+  width:36px;height:36px;border-radius:50%;
+  border:1px solid rgba(196,106,74,0.5);
+  position:fixed;pointer-events:none;z-index:9998;
+  transform:translate(-50%,-50%);
+  transition:transform .08s ease-out,width .2s,height .2s,border-color .2s;
+}
+body:has(a:hover) #cursor, body:has(button:hover) #cursor {
+  width:6px;height:6px;
+}
+body:has(a:hover) #cursor-ring, body:has(button:hover) #cursor-ring {
+  width:56px;height:56px;border-color:rgba(196,106,74,0.8);
+}
+
+body {
+  font-family:'Syne',sans-serif;
+  background:var(--bg);
+  color:var(--c);
+  line-height:1.6;
+  overflow-x:hidden;
+}
+
+/* ── GRAIN ── */
+body::after {
+  content:'';position:fixed;inset:0;z-index:1;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+  opacity:.35;
+}
+
+/* ── NAV ── */
+nav {
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  padding:0 clamp(1.5rem,5vw,4rem);
+  height:68px;
+  display:flex;align-items:center;justify-content:space-between;
+  border-bottom:1px solid var(--line);
+  background:rgba(14,12,10,0.85);
+  backdrop-filter:blur(20px);
+  transition:background .3s;
+}
+.nav-logo {
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.2rem;font-weight:600;font-style:italic;
+  color:var(--c);text-decoration:none;
+  letter-spacing:0.02em;
+}
+.nav-logo span { color:var(--o); }
+.nav-links { display:flex;gap:0;list-style:none; }
+.nav-links a {
+  display:block;padding:.4rem 1.1rem;
+  font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+  color:rgba(250,247,242,.5);text-decoration:none;
+  transition:color .2s;
+}
+.nav-links a:hover { color:var(--c); }
+.nav-cta {
+  font-family:'JetBrains Mono',monospace;font-size:.72rem!important;
+  color:var(--o)!important;letter-spacing:.08em!important;
+  border:1px solid rgba(196,106,74,.4);border-radius:4px;
+  padding:.4rem 1.1rem!important;
+  transition:background .2s,border-color .2s!important;
+}
+.nav-cta:hover { background:rgba(196,106,74,.1)!important;border-color:var(--o)!important; }
+.hamburger { display:none;flex-direction:column;gap:5px;cursor:none;background:none;border:none;padding:4px; }
+.hamburger span { display:block;width:20px;height:1.5px;background:var(--c);transition:.25s; }
+.mob-menu {
+  display:none;position:fixed;top:68px;left:0;right:0;bottom:0;
+  background:var(--bg);z-index:99;padding:3rem clamp(1.5rem,5vw,4rem);
+  flex-direction:column;gap:0;
+}
+.mob-menu.open { display:flex; }
+.mob-menu a {
+  display:block;padding:1.25rem 0;
+  font-family:'Cormorant Garamond',serif;
+  font-size:2.5rem;font-weight:300;font-style:italic;
+  color:var(--c);text-decoration:none;
+  border-bottom:1px solid var(--line);
+  transition:color .2s,padding-left .2s;
+}
+.mob-menu a:hover { color:var(--o);padding-left:.75rem; }
+
+/* ── HERO ── */
+#inicio {
+  min-height:100vh;padding-top:68px;
+  display:grid;place-items:center;
+  position:relative;overflow:hidden;
+}
+.hero-bg {
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 60% 50% at 70% 50%, rgba(91,45,139,.18) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 60% at 20% 80%, rgba(79,111,82,.1) 0%, transparent 55%);
+}
+/* Geometric Andean pattern */
+.hero-geo {
+  position:absolute;right:-100px;top:50%;transform:translateY(-50%);
+  width:500px;height:500px;opacity:.06;
+}
+.hero-geo svg { width:100%;height:100%; }
+
+.hero-inner {
+  position:relative;z-index:2;
+  max-width:1100px;width:100%;
+  padding:0 clamp(1.5rem,5vw,4rem);
+  display:grid;grid-template-columns:1fr auto;
+  align-items:center;gap:4rem;
+}
+.hero-left { max-width:700px; }
+
+.hero-eyebrow {
+  font-family:'JetBrains Mono',monospace;
+  font-size:.72rem;font-weight:400;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--o);
+  display:flex;align-items:center;gap:12px;
+  margin-bottom:2rem;
+}
+.hero-eyebrow::before {
+  content:'';display:block;
+  width:40px;height:1px;background:var(--o);
+}
+.blink { animation:blink 1.2s step-end infinite; }
+@keyframes blink { 0%,100%{opacity:1}50%{opacity:0} }
+
+.hero-h1 {
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(4rem,9vw,8rem);
+  font-weight:300;line-height:1;
+  letter-spacing:-.03em;
+  color:var(--c);
+  margin-bottom:.5rem;
+}
+.hero-h1 em {
+  font-style:italic;color:transparent;
+  -webkit-text-stroke:1px rgba(250,247,242,.6);
+}
+.hero-h1 strong {
+  font-weight:700;font-style:normal;
+  display:block;color:var(--c);
+}
+
+.hero-subtitle-line {
+  display:flex;align-items:center;gap:16px;
+  margin:2rem 0 2.5rem;
+}
+.hero-subtitle-line::before,
+.hero-subtitle-line::after {
+  content:'';flex:1;height:1px;background:var(--line2);
+}
+.hero-subtitle {
+  font-size:.82rem;letter-spacing:.12em;text-transform:uppercase;
+  color:rgba(250,247,242,.4);font-weight:500;white-space:nowrap;
+}
+
+.hero-desc {
+  font-size:1.05rem;font-weight:400;line-height:1.8;
+  color:rgba(250,247,242,.6);max-width:520px;margin-bottom:3rem;
+}
+
+.hero-actions { display:flex;gap:14px;flex-wrap:wrap;align-items:center; }
+
+.btn {
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:'Syne',sans-serif;
+  font-size:.8rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  padding:.85rem 2rem;border-radius:3px;cursor:none;
+  text-decoration:none;border:1.5px solid transparent;
+  transition:all .25s ease;
+}
+.btn-fill {
+  background:var(--o);color:var(--bg);border-color:var(--o);
+}
+.btn-fill:hover {
+  background:transparent;color:var(--o);
+  box-shadow:0 0 40px rgba(196,106,74,.2);
+}
+.btn-ghost {
+  background:transparent;color:var(--c);
+  border-color:rgba(250,247,242,.2);
+}
+.btn-ghost:hover {
+  border-color:var(--c);
+  background:rgba(250,247,242,.05);
+}
+.btn-purple {
+  background:transparent;color:var(--p);
+  border-color:var(--p);
+}
+.btn-purple:hover { background:var(--p);color:var(--c); }
+
+/* HERO RIGHT - stats column */
+.hero-right {
+  display:flex;flex-direction:column;gap:2px;
+  border-left:1px solid var(--line2);
+  padding-left:3rem;
+}
+.hero-stat {
+  padding:1.25rem 0;
+  border-bottom:1px solid var(--line);
+}
+.hero-stat:last-child { border-bottom:none; }
+.stat-num {
+  font-family:'Cormorant Garamond',serif;
+  font-size:2.8rem;font-weight:600;line-height:1;
+  color:var(--c);letter-spacing:-.02em;
+  margin-bottom:4px;
+}
+.stat-num sup { font-size:1.2rem;color:var(--o); }
+.stat-label {
+  font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;
+  color:rgba(250,247,242,.35);font-weight:500;
+}
+
+/* ── HORIZONTAL TICKER ── */
+.ticker-wrap {
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+  overflow:hidden;padding:1.1rem 0;
+  background:var(--bg2);
+  position:relative;z-index:2;
+}
+.ticker {
+  display:flex;gap:0;white-space:nowrap;
+  animation:ticker 28s linear infinite;
+}
+.ticker-inner { display:flex;gap:0; }
+.ticker-item {
+  display:inline-flex;align-items:center;gap:2rem;
+  padding:0 2.5rem;
+  font-family:'JetBrains Mono',monospace;
+  font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;
+  color:rgba(250,247,242,.3);
+}
+.ticker-item span { color:var(--o); }
+@keyframes ticker { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+
+/* ── SOBRE MÍ ── */
+#sobre {
+  padding:clamp(5rem,10vw,10rem) 0;
+  position:relative;
+}
+.sobre-wrap {
+  max-width:1100px;margin:0 auto;
+  padding:0 clamp(1.5rem,5vw,4rem);
+}
+.sobre-top {
+  display:grid;grid-template-columns:1fr 2fr;
+  gap:5rem;align-items:start;
+  margin-bottom:6rem;
+}
+.eyebrow {
+  font-family:'JetBrains Mono',monospace;
+  font-size:.68rem;font-weight:400;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--o);
+  display:flex;align-items:center;gap:10px;
+  margin-bottom:1.5rem;
+}
+.eyebrow::before {
+  content:'';width:24px;height:1px;background:var(--o);
+}
+.section-title {
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(2.4rem,5vw,4rem);
+  font-weight:300;line-height:1.1;
+  letter-spacing:-.02em;color:var(--c);
+}
+.section-title em { font-style:italic;color:transparent;-webkit-text-stroke:1px rgba(250,247,242,.5); }
+
+.sobre-text {
+  font-size:1.05rem;line-height:1.85;
+  color:rgba(250,247,242,.6);
+  font-weight:400;margin-bottom:1.5rem;
+}
+.pull-quote {
+  border-left:2px solid var(--p);
+  padding:1.25rem 0 1.25rem 1.75rem;
+  margin:2rem 0;
+}
+.pull-quote p {
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.4rem;font-weight:400;font-style:italic;
+  line-height:1.5;color:var(--c);letter-spacing:-.01em;
+}
+
+/* SKILLS MARQUEE */
+.skills-row {
+  overflow:hidden;
+  border-top:1px solid var(--line);
+  padding:1.5rem 0;
+}
+.skills-track {
+  display:flex;gap:10px;
+  animation:ticker 20s linear infinite;
+}
+.skill-pill {
+  display:inline-flex;align-items:center;gap:8px;
+  white-space:nowrap;
+  padding:.5rem 1.2rem;border-radius:2px;
+  font-size:.75rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+  border:1px solid;
+  flex-shrink:0;
+}
+.sp-p { border-color:rgba(91,45,139,.5);color:#c49ef0;background:rgba(91,45,139,.08); }
+.sp-g { border-color:rgba(79,111,82,.5);color:#8ec492;background:rgba(79,111,82,.08); }
+.sp-o { border-color:rgba(196,106,74,.5);color:#e8a07e;background:rgba(196,106,74,.08); }
+
+/* TIMELINE */
+.timeline { margin-top:4rem; }
+.tl-item {
+  display:grid;grid-template-columns:140px 1fr;
+  gap:2.5rem;
+  padding:2.5rem 0;
+  border-top:1px solid var(--line);
+  transition:background .2s;
+}
+.tl-item:hover { background:rgba(250,247,242,.02); }
+.tl-period {
+  font-family:'JetBrains Mono',monospace;
+  font-size:.7rem;color:rgba(250,247,242,.35);
+  letter-spacing:.05em;padding-top:.2rem;line-height:1.6;
+}
+.tl-right {}
+.tl-role {
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.4rem;font-weight:600;
+  color:var(--c);margin-bottom:4px;line-height:1.2;
+}
+.tl-org {
+  font-size:.78rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--o);margin-bottom:.75rem;
+}
+.tl-desc {
+  font-size:.9rem;color:rgba(250,247,242,.5);
+  line-height:1.7;
+}
+.tl-tags { display:flex;gap:6px;flex-wrap:wrap;margin-top:.75rem; }
+.tl-tag {
+  font-size:.65rem;padding:2px 9px;border-radius:2px;
+  font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+  background:rgba(250,247,242,.05);color:rgba(250,247,242,.4);
+  border:1px solid rgba(250,247,242,.1);
+}
+
+/* ── PORTAFOLIO ── */
+#portafolio {
+  padding:clamp(5rem,10vw,10rem) 0;
+  background:var(--bg2);
+  border-top:1px solid var(--line);
+}
+.port-wrap { max-width:1100px;margin:0 auto;padding:0 clamp(1.5rem,5vw,4rem); }
+.port-head {
+  display:flex;align-items:flex-end;justify-content:space-between;
+  margin-bottom:4rem;flex-wrap:wrap;gap:1.5rem;
+}
+
+.projects { display:flex;flex-direction:column;gap:1px;background:var(--line); }
+.proj-item {
+  background:var(--bg2);
+  display:grid;grid-template-columns:auto 1fr auto;
+  align-items:center;gap:3rem;
+  padding:2.25rem 2.5rem;
+  cursor:none;
+  transition:background .25s;
+  position:relative;overflow:hidden;
+}
+.proj-item::before {
+  content:'';position:absolute;left:0;top:0;bottom:0;
+  width:0;background:var(--p);
+  transition:width .3s ease;
+}
+.proj-item:hover { background:var(--bg3); }
+.proj-item:hover::before { width:3px; }
+.proj-num {
+  font-family:'JetBrains Mono',monospace;
+  font-size:.7rem;color:rgba(250,247,242,.2);
+  letter-spacing:.1em;min-width:32px;
+}
+.proj-main {}
+.proj-name {
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.6rem;font-weight:600;
+  color:var(--c);line-height:1.2;margin-bottom:6px;
+}
+.proj-meta {
+  display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+}
+.proj-org { font-size:.78rem;color:rgba(250,247,242,.4); }
+.proj-sep { color:rgba(250,247,242,.15);font-size:.6rem; }
+.proj-tags { display:flex;gap:5px;flex-wrap:wrap; }
+.proj-tag {
+  font-size:.62rem;padding:2px 8px;border-radius:2px;
+  font-family:'JetBrains Mono',monospace;letter-spacing:.04em;
+}
+.pt-p { background:rgba(91,45,139,.2);color:#c49ef0; }
+.pt-g { background:rgba(79,111,82,.2);color:#8ec492; }
+.pt-o { background:rgba(196,106,74,.2);color:#e8a07e; }
+.proj-right {
+  display:flex;flex-direction:column;align-items:flex-end;gap:8px;
+  text-align:right;min-width:140px;
+}
+.proj-award {
+  font-size:.68rem;color:var(--o);font-weight:700;
+  letter-spacing:.06em;text-transform:uppercase;
+  display:flex;align-items:center;gap:5px;
+}
+.proj-metrics {
+  display:flex;gap:1.5rem;
+}
+.pm { text-align:right; }
+.pm-num {
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.5rem;font-weight:600;
+  color:var(--c);line-height:1;
+}
+.pm-label { font-size:.6rem;color:rgba(250,247,242,.3);text-transform:uppercase;letter-spacing:.06em; }
+
+/* FEATURED card — different layout for top project */
+.proj-featured {
+  background:var(--bg3);
+  border:1px solid rgba(91,45,139,.25);
+  border-radius:4px;
+  padding:3rem;
+  margin-bottom:1px;
+  position:relative;overflow:hidden;
+  display:grid;grid-template-columns:1fr auto;gap:3rem;align-items:center;
+}
+.proj-featured::after {
+  content:'FEATURED';
+  position:absolute;top:1.5rem;right:1.5rem;
+  font-family:'JetBrains Mono',monospace;
+  font-size:.6rem;letter-spacing:.15em;
+  color:var(--p);border:1px solid rgba(91,45,139,.4);
+  padding:2px 8px;border-radius:2px;
+}
+.proj-featured .proj-name { font-size:2rem; }
+
+/* ── AWARDS ── */
+.awards-section {
+  padding:clamp(4rem,8vw,7rem) 0;
+  background:var(--bg);
+  border-top:1px solid var(--line);
+}
+.aw-wrap { max-width:1100px;margin:0 auto;padding:0 clamp(1.5rem,5vw,4rem); }
+.aw-head { text-align:center;margin-bottom:4rem; }
+.aw-grid {
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1px;background:var(--line);
+  border:1px solid var(--line);
+  border-radius:4px;overflow:hidden;
+}
+.aw-item {
+  background:var(--bg2);
+  padding:2rem 1.75rem;
+  transition:background .2s;
+  position:relative;
+}
+.aw-item:hover { background:var(--bg3); }
+.aw-year {
+  font-family:'JetBrains Mono',monospace;
+  font-size:.65rem;color:var(--o);letter-spacing:.12em;
+  text-transform:uppercase;margin-bottom:1rem;
+}
+.aw-name {
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.1rem;font-weight:600;line-height:1.3;
+  color:var(--c);margin-bottom:.4rem;
+}
+.aw-org { font-size:.75rem;color:rgba(250,247,242,.35); }
+
+/* ── CONTACTO ── */
+#contacto {
+  padding:clamp(5rem,10vw,10rem) 0;
+  background:var(--bg2);
+  border-top:1px solid var(--line);
+  position:relative;overflow:hidden;
+}
+#contacto::before {
+  content:'';position:absolute;
+  left:-200px;bottom:-200px;
+  width:600px;height:600px;border-radius:50%;
+  background:radial-gradient(circle, rgba(91,45,139,.12) 0%, transparent 70%);
+  pointer-events:none;
+}
+.contact-wrap { max-width:1100px;margin:0 auto;padding:0 clamp(1.5rem,5vw,4rem); }
+.contact-grid {
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:6rem;align-items:start;
+}
+.contact-big {
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(3rem,6vw,5.5rem);
+  font-weight:300;line-height:1;
+  letter-spacing:-.03em;color:var(--c);
+  margin:1.5rem 0 2.5rem;
+}
+.contact-big em { font-style:italic;color:var(--o); }
+
+.contact-links { display:flex;flex-direction:column;gap:0; }
+.cl-item {
+  display:flex;align-items:center;gap:1.25rem;
+  padding:1.25rem 0;
+  border-bottom:1px solid var(--line);
+  text-decoration:none;color:var(--c);
+  transition:padding-left .2s;
+  group:true;
+}
+.cl-item:first-child { border-top:1px solid var(--line); }
+.cl-item:hover { padding-left:.5rem; }
+.cl-icon {
+  width:40px;height:40px;border-radius:3px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;flex-shrink:0;
+  border:1px solid rgba(250,247,242,.1);
+  background:rgba(250,247,242,.04);
+  transition:background .2s,border-color .2s;
+}
+.cl-item:hover .cl-icon {
+  background:rgba(196,106,74,.15);border-color:rgba(196,106,74,.4);
+}
+.cl-label {
+  font-family:'JetBrains Mono',monospace;
+  font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;
+  color:rgba(250,247,242,.3);margin-bottom:2px;
+}
+.cl-val { font-size:.9rem;font-weight:500;color:rgba(250,247,242,.8); }
+.cl-arrow {
+  margin-left:auto;color:rgba(250,247,242,.15);font-size:.8rem;
+  transition:color .2s,transform .2s;
+}
+.cl-item:hover .cl-arrow { color:var(--o);transform:translateX(4px); }
+
+/* FORM */
+.form-side { }
+.form-label-txt {
+  display:block;font-size:.72rem;font-weight:600;
+  letter-spacing:.08em;text-transform:uppercase;
+  color:rgba(250,247,242,.4);margin-bottom:.5rem;
+}
+.form-input, .form-textarea, .form-select {
+  width:100%;padding:.875rem 1rem;
+  background:rgba(250,247,242,.04);
+  border:1px solid rgba(250,247,242,.1);
+  border-radius:3px;
+  font-family:'Syne',sans-serif;font-size:.9rem;
+  color:var(--c);outline:none;
+  transition:border-color .2s,background .2s;
+}
+.form-input:focus,.form-textarea:focus,.form-select:focus {
+  border-color:rgba(91,45,139,.6);
+  background:rgba(91,45,139,.05);
+}
+.form-input::placeholder,.form-textarea::placeholder { color:rgba(250,247,242,.2); }
+.form-textarea { min-height:130px;resize:vertical;line-height:1.6; }
+.form-select { appearance:none;cursor:none; }
+.form-select option { background:var(--bg);color:var(--c); }
+.form-row { display:grid;grid-template-columns:1fr 1fr;gap:14px; }
+.form-group { margin-bottom:1.1rem; }
+.form-ok {
+  display:none;
+  background:rgba(79,111,82,.1);border:1px solid rgba(79,111,82,.3);
+  border-radius:3px;padding:1rem 1.25rem;
+  font-size:.85rem;color:#8ec492;margin-top:1rem;text-align:center;
+  font-family:'JetBrains Mono',monospace;
+}
+
+/* ── FOOTER ── */
+footer {
+  background:var(--bg);
+  border-top:1px solid var(--line);
+  padding:2.5rem clamp(1.5rem,5vw,4rem);
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:1rem;
+}
+.footer-logo {
+  font-family:'Cormorant Garamond',serif;
+  font-size:1rem;font-weight:600;font-style:italic;color:var(--c);
+}
+.footer-logo span { color:var(--o); }
+.footer-links { display:flex;gap:0;list-style:none; }
+.footer-links a {
+  font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;
+  color:rgba(250,247,242,.3);text-decoration:none;padding:.3rem .8rem;
+  transition:color .2s;
+}
+.footer-links a:hover { color:var(--c); }
+.footer-copy {
+  font-family:'JetBrains Mono',monospace;
+  font-size:.65rem;color:rgba(250,247,242,.2);
+}
+
+/* ── ANIMATIONS ── */
+.reveal {
+  opacity:0;transform:translateY(32px);
+  transition:opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1);
+}
+.reveal.in { opacity:1;transform:none; }
+.reveal-left {
+  opacity:0;transform:translateX(-32px);
+  transition:opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1);
+}
+.reveal-left.in { opacity:1;transform:none; }
+[data-delay="1"] { transition-delay:.1s; }
+[data-delay="2"] { transition-delay:.2s; }
+[data-delay="3"] { transition-delay:.3s; }
+[data-delay="4"] { transition-delay:.4s; }
+[data-delay="5"] { transition-delay:.5s; }
+[data-delay="6"] { transition-delay:.6s; }
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  .hero-inner { grid-template-columns:1fr;gap:3rem; }
+  .hero-right { border-left:none;border-top:1px solid var(--line2);padding-left:0;padding-top:2rem;flex-direction:row;flex-wrap:wrap;gap:0; }
+  .hero-stat { padding:.75rem 1.5rem .75rem 0;border-bottom:none;border-right:1px solid var(--line); }
+  .hero-stat:last-child { border-right:none; }
+  .sobre-top { grid-template-columns:1fr;gap:2rem; }
+  .contact-grid { grid-template-columns:1fr;gap:3rem; }
+  .aw-grid { grid-template-columns:1fr 1fr; }
+  .proj-item { grid-template-columns:auto 1fr;gap:1.5rem; }
+  .proj-right { display:none; }
+  .proj-featured { grid-template-columns:1fr; }
+  .nav-links { display:none; }
+  .hamburger { display:flex; }
+}
+@media(max-width:580px){
+  .hero-h1 { font-size:clamp(3rem,14vw,4.5rem); }
+  .aw-grid { grid-template-columns:1fr; }
+  .form-row { grid-template-columns:1fr; }
+  .hero-right { display:none; }
+  .tl-item { grid-template-columns:1fr;gap:.75rem; }
+  .tl-period { padding-top:0; }
+  footer { flex-direction:column;align-items:flex-start; }
+}
+@media(max-width:360px){
+  nav { padding:0 1rem; }
+  .hero-inner { padding:0 1rem; }
+}
+</style>
+</head>
+<body>
+
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<!-- ═══ NAV ═══ -->
+<nav id="navbar">
+  <a href="#inicio" class="nav-logo">Lucero <span>CR</span></a>
+  <ul class="nav-links">
+    <li><a href="#inicio">Inicio</a></li>
+    <li><a href="#sobre">Sobre mí</a></li>
+    <li><a href="#portafolio">Portafolio</a></li>
+    <li><a href="#contacto" class="nav-cta">Contacto →</a></li>
+  </ul>
+  <button class="hamburger" id="ham" onclick="toggleMob()" aria-label="Menú">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mob-menu" id="mobMenu">
+  <a href="#inicio" onclick="closeMob()">Inicio</a>
+  <a href="#sobre" onclick="closeMob()">Sobre mí</a>
+  <a href="#portafolio" onclick="closeMob()">Portafolio</a>
+  <a href="#contacto" onclick="closeMob()">Contacto</a>
+</div>
+
+<!-- ═══ HERO ═══ -->
+<section id="inicio">
+  <div class="hero-bg"></div>
+  <div class="hero-geo" aria-hidden="true">
+    <svg viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Andean geometric motif — stepped diamond pattern -->
+      <g stroke="#FAF7F2" stroke-width="0.5" fill="none">
+        <rect x="150" y="150" width="200" height="200" transform="rotate(45 250 250)"/>
+        <rect x="170" y="170" width="160" height="160" transform="rotate(45 250 250)"/>
+        <rect x="190" y="190" width="120" height="120" transform="rotate(45 250 250)"/>
+        <rect x="210" y="210" width="80" height="80" transform="rotate(45 250 250)"/>
+        <rect x="230" y="230" width="40" height="40" transform="rotate(45 250 250)"/>
+        <!-- Cross lines -->
+        <line x1="250" y1="10" x2="250" y2="490"/>
+        <line x1="10" y1="250" x2="490" y2="250"/>
+        <!-- Diagonal lines -->
+        <line x1="10" y1="10" x2="490" y2="490"/>
+        <line x1="490" y1="10" x2="10" y2="490"/>
+        <!-- Corner decorations -->
+        <rect x="20" y="20" width="60" height="60"/>
+        <rect x="30" y="30" width="40" height="40"/>
+        <rect x="420" y="20" width="60" height="60"/>
+        <rect x="430" y="30" width="40" height="40"/>
+        <rect x="20" y="420" width="60" height="60"/>
+        <rect x="30" y="430" width="40" height="40"/>
+        <rect x="420" y="420" width="60" height="60"/>
+        <rect x="430" y="430" width="40" height="40"/>
+        <!-- Circles -->
+        <circle cx="250" cy="250" r="140"/>
+        <circle cx="250" cy="250" r="100"/>
+        <circle cx="250" cy="250" r="60"/>
+      </g>
+      <!-- Color accents -->
+      <g fill="none">
+        <rect x="230" y="230" width="40" height="40" transform="rotate(45 250 250)" fill="rgba(91,45,139,0.3)" stroke="none"/>
+        <circle cx="250" cy="60" r="4" fill="rgba(196,106,74,0.8)"/>
+        <circle cx="250" cy="440" r="4" fill="rgba(196,106,74,0.8)"/>
+        <circle cx="60" cy="250" r="4" fill="rgba(196,106,74,0.8)"/>
+        <circle cx="440" cy="250" r="4" fill="rgba(196,106,74,0.8)"/>
+      </g>
+    </svg>
+  </div>
+
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-eyebrow">
+        <span>Project Manager</span>
+        <span class="blink">_</span>
+        <span style="color:rgba(250,247,242,.3)">Disponible</span>
+      </div>
+      <h1 class="hero-h1">
+        <em>Lucero</em>
+        <strong>Condori</strong>
+        <strong style="color:var(--o)">Rivera</strong>
+      </h1>
+      <div class="hero-subtitle-line">
+        <span class="hero-subtitle">Innovación digital · Impacto social · Perfil técnico</span>
+      </div>
+      <p class="hero-desc">
+        Transformo organizaciones desde cero. Más de 6 años liderando proyectos tecnológicos en Perú y LATAM — con código, con equipos y con resultados medibles.
+      </p>
+      <div class="hero-actions">
+        <a href="#portafolio" class="btn btn-fill">Ver proyectos →</a>
+        <a href="#contacto" class="btn btn-ghost">Conversemos</a>
+      </div>
+    </div>
+    <div class="hero-right" aria-label="Métricas">
+      <div class="hero-stat">
+        <div class="stat-num">7K<sup>+</sup></div>
+        <div class="stat-label">Usuarias gestionadas</div>
+      </div>
+      <div class="hero-stat">
+        <div class="stat-num">6</div>
+        <div class="stat-label">Países LATAM</div>
+      </div>
+      <div class="hero-stat">
+        <div class="stat-num">300<sup>+</sup></div>
+        <div class="stat-label">Mujeres formadas</div>
+      </div>
+      <div class="hero-stat">
+        <div class="stat-num">5</div>
+        <div class="stat-label">Plataformas web</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker-wrap" aria-hidden="true">
+  <div class="ticker">
+    <div class="ticker-inner">
+      <span class="ticker-item">Gestión de proyectos <span>·</span></span>
+      <span class="ticker-item">Node.js <span>·</span></span>
+      <span class="ticker-item">Transformación digital <span>·</span></span>
+      <span class="ticker-item">Python <span>·</span></span>
+      <span class="ticker-item">Impacto social <span>·</span></span>
+      <span class="ticker-item">Agile & Scrum <span>·</span></span>
+      <span class="ticker-item">EdTech <span>·</span></span>
+      <span class="ticker-item">MongoDB <span>·</span></span>
+      <span class="ticker-item">Alianzas estratégicas <span>·</span></span>
+      <span class="ticker-item">MIT Professional Ed <span>·</span></span>
+      <span class="ticker-item">Premio Movistar 2022 <span>·</span></span>
+      <span class="ticker-item">Ada ITW <span>·</span></span>
+    </div>
+    <div class="ticker-inner" aria-hidden="true">
+      <span class="ticker-item">Gestión de proyectos <span>·</span></span>
+      <span class="ticker-item">Node.js <span>·</span></span>
+      <span class="ticker-item">Transformación digital <span>·</span></span>
+      <span class="ticker-item">Python <span>·</span></span>
+      <span class="ticker-item">Impacto social <span>·</span></span>
+      <span class="ticker-item">Agile & Scrum <span>·</span></span>
+      <span class="ticker-item">EdTech <span>·</span></span>
+      <span class="ticker-item">MongoDB <span>·</span></span>
+      <span class="ticker-item">Alianzas estratégicas <span>·</span></span>
+      <span class="ticker-item">MIT Professional Ed <span>·</span></span>
+      <span class="ticker-item">Premio Movistar 2022 <span>·</span></span>
+      <span class="ticker-item">Ada ITW <span>·</span></span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SOBRE MÍ ═══ -->
+<section id="sobre">
+  <div class="sobre-wrap">
+    <div class="sobre-top">
+      <div class="reveal">
+        <div class="eyebrow">Sobre mí</div>
+        <h2 class="section-title">Gestiono.<br><em>Construyo.</em><br>Impacto.</h2>
+      </div>
+      <div class="reveal" data-delay="2">
+        <p class="sobre-text">Soy Project Manager con base técnica en desarrollo de software. Trabajo en la intersección entre tecnología, educación y comunidad — gestionando proyectos digitales de alto impacto con criterio estratégico y manos en el código.</p>
+        <div class="pull-quote">
+          <p>"Mi formación técnica me da una ventaja real: entiendo lo que el equipo construye, detecto riesgos temprano y comunico con precisión a todos los niveles."</p>
+        </div>
+        <p class="sobre-text">Formada en Ada ITW (Backend), MIT Professional Education (Innovación y Sostenibilidad) y con Especialización en Gestión Cultural del MALI. Arequipa, Perú — trabajo remoto en todo LATAM.</p>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:2rem">
+          <a href="#contacto" class="btn btn-fill">Trabajemos juntas →</a>
+          <a href="#portafolio" class="btn btn-ghost">Ver proyectos</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Skills Marquee -->
+    <div class="skills-row reveal">
+      <div class="skills-track">
+        <span class="skill-pill sp-p">Agile · Scrum</span>
+        <span class="skill-pill sp-g">Node.js · Express</span>
+        <span class="skill-pill sp-o">Stakeholder Management</span>
+        <span class="skill-pill sp-p">Python · Pandas</span>
+        <span class="skill-pill sp-g">Transformación Digital</span>
+        <span class="skill-pill sp-o">MongoDB · MySQL</span>
+        <span class="skill-pill sp-p">Gestión de Fondos</span>
+        <span class="skill-pill sp-g">EdTech</span>
+        <span class="skill-pill sp-o">KPIs · Reportes</span>
+        <span class="skill-pill sp-p">Git · GitHub</span>
+        <span class="skill-pill sp-g">Impacto Social</span>
+        <span class="skill-pill sp-o">Comunicación Ejecutiva</span>
+        <span class="skill-pill sp-p">Agile · Scrum</span>
+        <span class="skill-pill sp-g">Node.js · Express</span>
+        <span class="skill-pill sp-o">Stakeholder Management</span>
+        <span class="skill-pill sp-p">Python · Pandas</span>
+        <span class="skill-pill sp-g">Transformación Digital</span>
+        <span class="skill-pill sp-o">MongoDB · MySQL</span>
+      </div>
+    </div>
+
+    <!-- Timeline -->
+    <div class="timeline">
+      <div class="tl-item reveal">
+        <div class="tl-period">Oct 2024<br>Sep 2025</div>
+        <div class="tl-right">
+          <div class="tl-role">Desarrolladora Back End</div>
+          <div class="tl-org">Ada ITW</div>
+          <div class="tl-desc">Formación intensiva en Node.js, Express, MongoDB. Proyecto integrador con arquitectura cliente-servidor, autenticación JWT y deploy en producción.</div>
+          <div class="tl-tags"><span class="tl-tag">Node.js</span><span class="tl-tag">MongoDB</span><span class="tl-tag">Express</span><span class="tl-tag">JWT</span></div>
+        </div>
+      </div>
+      <div class="tl-item reveal" data-delay="1">
+        <div class="tl-period">Ene 2019<br>May 2025</div>
+        <div class="tl-right">
+          <div class="tl-role">Coordinadora de Innovación Tecnológica</div>
+          <div class="tl-org">Warmis Sikuris</div>
+          <div class="tl-desc">Transformación digital completa desde cero: 5 plataformas web, sistema de venta online, talleres virtuales mensuales, 7,000+ usuarias en 6 países. Gestión de hosting, dominios y servidores durante 6 años.</div>
+          <div class="tl-tags"><span class="tl-tag">JavaScript</span><span class="tl-tag">Gestión de proyectos</span><span class="tl-tag">6 países</span><span class="tl-tag">7K+ usuarias</span></div>
+        </div>
+      </div>
+      <div class="tl-item reveal" data-delay="2">
+        <div class="tl-period">Ago 2023<br>Dic 2023</div>
+        <div class="tl-right">
+          <div class="tl-role">Innovación y Sostenibilidad</div>
+          <div class="tl-org">MIT Professional Education</div>
+          <div class="tl-desc">Formación en diseño de innovación, estrategia de sostenibilidad y emprendimiento tecnológico con perspectiva global.</div>
+          <div class="tl-tags"><span class="tl-tag">Innovación</span><span class="tl-tag">MIT</span><span class="tl-tag">Sostenibilidad</span></div>
+        </div>
+      </div>
+      <div class="tl-item reveal" data-delay="3">
+        <div class="tl-period">Ago 2021<br>Presente</div>
+        <div class="tl-right">
+          <div class="tl-role">Directora y Fundadora</div>
+          <div class="tl-org">Mujeres en STEAM</div>
+          <div class="tl-desc">Creé y dirigí el programa desde cero: currículo, alianzas estratégicas (American Tower Corp), postulación y victoria en Premio Movistar 2022 entre 139 proyectos de 21 regiones.</div>
+          <div class="tl-tags"><span class="tl-tag">Liderazgo</span><span class="tl-tag">300+ formadas</span><span class="tl-tag">Premio Nacional</span></div>
+        </div>
+      </div>
+      <div class="tl-item reveal" data-delay="4">
+        <div class="tl-period">Abr 2014<br>Mar 2018</div>
+        <div class="tl-right">
+          <div class="tl-role">Analista y Programadora de Software</div>
+          <div class="tl-org">Centro Médico Monte Carmelo</div>
+          <div class="tl-desc">Sistema web de citas ocupacionales, ERP inhouse, integración SUSALUD/IPRESS, odontograma digital. 4 años de desarrollo en entorno clínico real.</div>
+          <div class="tl-tags"><span class="tl-tag">SQL</span><span class="tl-tag">ERP</span><span class="tl-tag">SUSALUD</span><span class="tl-tag">Full Stack</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PORTAFOLIO ═══ -->
+<section id="portafolio">
+  <div class="port-wrap">
+    <div class="port-head">
+      <div class="reveal">
+        <div class="eyebrow">Portafolio</div>
+        <h2 class="section-title">Proyectos que<br><em>dejan huella</em></h2>
+      </div>
+      <a href="#contacto" class="btn btn-fill reveal" data-delay="2">Hablemos de tu proyecto →</a>
+    </div>
+
+    <!-- FEATURED -->
+    <div class="proj-featured reveal">
+      <div>
+        <div class="proj-tag pt-p" style="display:inline-block;margin-bottom:1rem">Proyecto ancla · 2019–2025</div>
+        <div class="proj-name">Transformación Digital<br>Warmis Sikuris</div>
+        <p style="font-size:.9rem;color:rgba(250,247,242,.5);line-height:1.7;margin:1rem 0 1.5rem;max-width:500px">Lideré la digitalización completa de una organización cultural desde cero hasta escalar a 7,000+ usuarias activas en 6 países de LATAM. 5 plataformas web, venta online, talleres virtuales mensuales — todo gestionado y sostenido durante 6 años ininterrumpidos.</p>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1.5rem">
+          <span class="proj-tag pt-p">Gestión de proyectos</span>
+          <span class="proj-tag pt-g">JavaScript · HTML · CSS</span>
+          <span class="proj-tag pt-o">6 países LATAM</span>
+          <span class="proj-tag pt-p">Transformación digital</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;font-size:.72rem;color:var(--o);font-weight:700;letter-spacing:.06em;text-transform:uppercase">
+          ★ Ganadora Ministerio de Cultura del Perú 2020 y 2021
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(250,247,242,.06);border-radius:3px;overflow:hidden;align-self:center">
+        <div style="background:var(--bg2);padding:1.5rem;text-align:center">
+          <div class="stat-num" style="font-size:2.2rem">7K<sup style="font-size:1rem;color:var(--o)">+</sup></div>
+          <div class="stat-label">Usuarias</div>
+        </div>
+        <div style="background:var(--bg2);padding:1.5rem;text-align:center">
+          <div class="stat-num" style="font-size:2.2rem">5</div>
+          <div class="stat-label">Plataformas</div>
+        </div>
+        <div style="background:var(--bg2);padding:1.5rem;text-align:center">
+          <div class="stat-num" style="font-size:2.2rem">6</div>
+          <div class="stat-label">Países</div>
+        </div>
+        <div style="background:var(--bg2);padding:1.5rem;text-align:center">
+          <div class="stat-num" style="font-size:2.2rem">6</div>
+          <div class="stat-label">Años</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LIST -->
+    <div class="projects">
+      <div class="proj-item reveal">
+        <div class="proj-num">02</div>
+        <div class="proj-main">
+          <div class="proj-name">Mujeres en STEAM</div>
+          <div class="proj-meta">
+            <span class="proj-org">Programa propio · Nacional · 2021–Presente</span>
+            <span class="proj-sep">◆</span>
+            <div class="proj-tags">
+              <span class="proj-tag pt-o">Impacto social</span>
+              <span class="proj-tag pt-g">EdTech</span>
+              <span class="proj-tag pt-p">Alianzas</span>
+            </div>
+          </div>
+        </div>
+        <div class="proj-right">
+          <div class="proj-award">★ Gran Ganadora Movistar 2022</div>
+          <div class="proj-metrics">
+            <div class="pm"><div class="pm-num">300+</div><div class="pm-label">formadas</div></div>
+            <div class="pm"><div class="pm-num">139</div><div class="pm-label">proyectos</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="proj-item reveal" data-delay="1">
+        <div class="proj-num">03</div>
+        <div class="proj-main">
+          <div class="proj-name">WarmiJunta — Fintech</div>
+          <div class="proj-meta">
+            <span class="proj-org">InnovaBCP Women Edition · BCP + Laboratoria · 2025</span>
+            <span class="proj-sep">◆</span>
+            <div class="proj-tags">
+              <span class="proj-tag pt-g">Fintech</span>
+              <span class="proj-tag pt-p">Inclusión financiera</span>
+              <span class="proj-tag pt-o">Hackathon</span>
+            </div>
+          </div>
+        </div>
+        <div class="proj-right">
+          <div class="proj-award">★ Finalista Top 6</div>
+          <div class="proj-metrics">
+            <div class="pm"><div class="pm-num">120+</div><div class="pm-label">participantes</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="proj-item reveal" data-delay="2">
+        <div class="proj-num">04</div>
+        <div class="proj-main">
+          <div class="proj-name">Proyecto Rimarisun — UCSP</div>
+          <div class="proj-meta">
+            <span class="proj-org">Instituto Impacto Bicentenario · 2022–2024</span>
+            <span class="proj-sep">◆</span>
+            <div class="proj-tags">
+              <span class="proj-tag pt-p">Python · Pandas</span>
+              <span class="proj-tag pt-g">Análisis de datos</span>
+              <span class="proj-tag pt-o">Rural</span>
+            </div>
+          </div>
+        </div>
+        <div class="proj-right">
+          <div class="proj-metrics">
+            <div class="pm"><div class="pm-num">84</div><div class="pm-label">participantes</div></div>
+            <div class="pm"><div class="pm-num">8m</div><div class="pm-label">entrega</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="proj-item reveal" data-delay="3">
+        <div class="proj-num">05</div>
+        <div class="proj-main">
+          <div class="proj-name">AlertBrace — HealthTech IoT</div>
+          <div class="proj-meta">
+            <span class="proj-org">Hult Prize UTP 2025</span>
+            <span class="proj-sep">◆</span>
+            <div class="proj-tags">
+              <span class="proj-tag pt-o">HealthTech</span>
+              <span class="proj-tag pt-g">IoT</span>
+              <span class="proj-tag pt-p">ODS</span>
+            </div>
+          </div>
+        </div>
+        <div class="proj-right">
+          <div class="proj-award">★ Semifinalista</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AWARDS -->
+<div class="awards-section">
+  <div class="aw-wrap">
+    <div class="aw-head reveal">
+      <div class="eyebrow" style="justify-content:center">Reconocimientos</div>
+      <h2 class="section-title" style="text-align:center">Trabajo <em>reconocido</em></h2>
+    </div>
+    <div class="aw-grid">
+      <div class="aw-item reveal">
+        <div class="aw-year">2022</div>
+        <div class="aw-name">Gran Ganadora — Premio Conectarse para Crecer</div>
+        <div class="aw-org">Movistar · American Tower Corp · 139 proyectos · 21 regiones</div>
+      </div>
+      <div class="aw-item reveal" data-delay="1">
+        <div class="aw-year">Abr 2025</div>
+        <div class="aw-name">Finalista Top 6 — InnovaBCP Women Edition</div>
+        <div class="aw-org">Banco de Crédito BCP · Laboratoria · +120 participantes</div>
+      </div>
+      <div class="aw-item reveal" data-delay="2">
+        <div class="aw-year">Feb 2025</div>
+        <div class="aw-name">Semifinalista — Hult Prize UTP 2025</div>
+        <div class="aw-org">Hult Prize Foundation</div>
+      </div>
+      <div class="aw-item reveal" data-delay="3">
+        <div class="aw-year">2020</div>
+        <div class="aw-name">Ganadora — Proyectos Redes y Plataformas</div>
+        <div class="aw-org">Ministerio de Cultura del Perú</div>
+      </div>
+      <div class="aw-item reveal" data-delay="4">
+        <div class="aw-year">2021</div>
+        <div class="aw-name">Ganadora — Arte para la Transformación Social</div>
+        <div class="aw-org">Ministerio de Cultura del Perú</div>
+      </div>
+      <div class="aw-item reveal" data-delay="5">
+        <div class="aw-year">2022–2024</div>
+        <div class="aw-name">Fondos Semilla — Mujeres Enseñando a Mujeres</div>
+        <div class="aw-org">Embajada de EEUU en Perú · American Spaces</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ CONTACTO ═══ -->
+<section id="contacto">
+  <div class="contact-wrap">
+    <div class="contact-grid">
+      <div class="reveal-left">
+        <div class="eyebrow">Contacto</div>
+        <h2 class="contact-big">
+          Hablemos<br>de tu <em>proyecto</em>
+        </h2>
+        <p style="font-size:.95rem;color:rgba(250,247,242,.5);line-height:1.8;max-width:380px;margin-bottom:2.5rem">
+          Disponible para proyectos de innovación digital, coordinación de equipos tech y consultoría en transformación digital. Arequipa — trabajo remoto en LATAM.
+        </p>
+        <div class="contact-links">
+          <a href="mailto:Lucero.crivera@gmail.com" class="cl-item">
+            <div class="cl-icon">✉</div>
+            <div><div class="cl-label">Email</div><div class="cl-val">Lucero.crivera@gmail.com</div></div>
+            <span class="cl-arrow">→</span>
+          </a>
+          <a href="tel:+51997031731" class="cl-item">
+            <div class="cl-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(250,247,242,0.7)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></div>
+            <div><div class="cl-label">WhatsApp</div><div class="cl-val">+51 997 031 731</div></div>
+            <span class="cl-arrow">→</span>
+          </a>
+          <a href="https://linkedin.com/in/lucerocondoririvera" target="_blank" class="cl-item">
+            <div class="cl-icon">in</div>
+            <div><div class="cl-label">LinkedIn</div><div class="cl-val">lucerocondoririvera</div></div>
+            <span class="cl-arrow">→</span>
+          </a>
+          <a href="https://github.com/LuceroCondoriRivera" target="_blank" class="cl-item">
+            <div class="cl-icon">&lt;/&gt;</div>
+            <div><div class="cl-label">GitHub</div><div class="cl-val">LuceroCondoriRivera</div></div>
+            <span class="cl-arrow">→</span>
+          </a>
+          <div class="cl-item" style="cursor:default">
+            <div class="cl-icon">◎</div>
+            <div><div class="cl-label">Ubicación</div><div class="cl-val">Arequipa, Perú · Remoto LATAM</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-side reveal" data-delay="2">
+        <form id="cForm" onsubmit="sendForm(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label-txt" for="fn">Nombre</label>
+              <input type="text" id="fn" name="nombre" class="form-input" placeholder="Tu nombre" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label-txt" for="fe">Email</label>
+              <input type="email" id="fe" name="email" class="form-input" placeholder="tu@email.com" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label-txt" for="forg">Empresa / Organización</label>
+            <input type="text" id="forg" name="empresa" class="form-input" placeholder="Opcional">
+          </div>
+          <div class="form-group">
+            <label class="form-label-txt" for="fas">¿En qué puedo ayudarte?</label>
+            <select id="fas" name="servicio" class="form-select form-input">
+              <option value="" disabled selected>Selecciona</option>
+              <option>Gestión de proyecto digital</option>
+              <option>Coordinación de innovación</option>
+              <option>Transformación digital</option>
+              <option>Consultoría EdTech</option>
+              <option>Desarrollo de plataforma</option>
+              <option>Otro</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label-txt" for="fm">Mensaje</label>
+            <textarea id="fm" name="mensaje" class="form-textarea" placeholder="Cuéntame sobre tu proyecto..." required></textarea>
+          </div>
+          <button type="submit" id="fBtn" class="btn btn-fill" style="width:100%;justify-content:center">
+            Enviar mensaje →
+          </button>
+          <div id="fErr" style="display:none;margin-top:.75rem;padding:.75rem 1rem;border-radius:3px;background:rgba(196,106,74,.1);border:1px solid rgba(196,106,74,.3);font-size:.82rem;color:#e8a07e;font-family:'JetBrains Mono',monospace;">
+            ✕ Hubo un error. Intenta de nuevo o escríbeme directamente.
+          </div>
+        </form>
+        <div class="form-ok" id="fok">
+          ✓ Mensaje recibido — respondo en menos de 24h.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="footer-logo">Lucero <span>CR</span></div>
+  <ul class="footer-links">
+    <li><a href="#inicio">Inicio</a></li>
+    <li><a href="#sobre">Sobre mí</a></li>
+    <li><a href="#portafolio">Portafolio</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
+  <div class="footer-copy">© 2025 · Arequipa, Perú</div>
+</footer>
+
+<script>
+/* ── CURSOR ── */
+const cur = document.getElementById('cursor');
+const ring = document.getElementById('cursor-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; });
+function animateCursor(){
+  cur.style.left = mx+'px'; cur.style.top = my+'px';
+  rx += (mx-rx)*.12; ry += (my-ry)*.12;
+  ring.style.left = rx+'px'; ring.style.top = ry+'px';
+  requestAnimationFrame(animateCursor);
+}
+animateCursor();
+
+/* Hide cursor on mobile */
+if('ontouchstart' in window){
+  cur.style.display='none'; ring.style.display='none';
+  document.body.style.cursor='auto';
+}
+
+/* ── SCROLL REVEAL ── */
+const io = new IntersectionObserver(entries=>{
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('in'); });
+},{threshold:.1});
+document.querySelectorAll('.reveal,.reveal-left').forEach(el=>io.observe(el));
+
+/* ── SMOOTH LINKS ── */
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    const id=a.getAttribute('href').slice(1);
+    const el=document.getElementById(id);
+    if(el){e.preventDefault();el.scrollIntoView({behavior:'smooth',block:'start'});}
+  });
+});
+
+/* ── MOBILE MENU ── */
+function toggleMob(){
+  const m=document.getElementById('mobMenu');
+  m.classList.toggle('open');
+}
+function closeMob(){
+  document.getElementById('mobMenu').classList.remove('open');
+}
+
+/* ── FORM → FORMSPREE ── */
+async function sendForm(e){
+  e.preventDefault();
+  const btn = document.getElementById('fBtn');
+  const err = document.getElementById('fErr');
+  err.style.display = 'none';
+  btn.textContent = 'Enviando...';
+  btn.disabled = true;
+
+  const data = new FormData(e.target);
+
+  try {
+    const res = await fetch('https://formspree.io/f/xojkwyzk', {
+      method: 'POST',
+      body: data,
+      headers: { 'Accept': 'application/json' }
+    });
+    if (res.ok) {
+      document.getElementById('cForm').style.display = 'none';
+      document.getElementById('fok').style.display = 'block';
+    } else {
+      throw new Error('Error en el servidor');
+    }
+  } catch {
+    btn.textContent = 'Enviar mensaje →';
+    btn.disabled = false;
+    err.style.display = 'block';
+  }
+}
+
+/* ── NAV active state ── */
+const sections=document.querySelectorAll('section[id]');
+const navLinks=document.querySelectorAll('.nav-links a');
+const observer2=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      navLinks.forEach(a=>{
+        a.style.color = a.getAttribute('href')==='#'+e.target.id
+          ? 'rgba(250,247,242,1)' : 'rgba(250,247,242,.5)';
+      });
+    }
+  });
+},{threshold:.4});
+sections.forEach(s=>observer2.observe(s));
+</script>
+</body>
+</html>
